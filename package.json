@@ -1,10 +1,11 @@
 {
   "name": "ls-table",
-  "version": "1.1.6",
+  "version": "1.2.0",
   "description": "",
   "main": "./bin/index.ts",
   "bin": {
-    "ls-table": "./bin/index.js"
+    "ls-table": "./bin/index.js",
+    "lst": "./bin/index.js"
   },
   "scripts": {
     "build": "tsc ./lib/src.ts --outDir ./bin",
