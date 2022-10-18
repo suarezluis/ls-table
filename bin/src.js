@@ -80,7 +80,7 @@ var main = function () {
         spanningCells: [{ col: 0, row: 0, colSpan: 4, rowSpan: 3 }]
     };
     var tableOutput = (0, table_1.table)(__spreadArray([
-        [relativePath, "", "", ""],
+        ["\uD83D\uDCC2 ".concat(relativePath), "", "", ""],
         ["", "", "", ""],
         ["", "", "", ""],
         tableHeader,
