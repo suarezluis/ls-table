@@ -22,6 +22,7 @@
   "homepage": "https://github.com/suarezluis/open-in-click-up#readme",
   "license": "ISC",
   "dependencies": {
+    "prettier-bytes": "^1.0.4",
     "table": "^6.8.0"
   },
   "devDependencies": {

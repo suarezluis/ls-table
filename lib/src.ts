@@ -1,7 +1,8 @@
-"use strict";
+var prettierBytes = require("prettier-bytes");
 const os = require("os");
 const fs = require("fs");
 const path = require("path");
+
 import { table, TableUserConfig } from "table";
 
 const main = () => {
@@ -21,7 +22,7 @@ const main = () => {
   }
   interface Item {
     name: string;
-    size: number;
+    size: string;
     createdDate: string;
     createdTime: string;
     updatedTime: string;
@@ -34,7 +35,7 @@ const main = () => {
   for (const item of rawRead) {
     const stats = fs.statSync(`${relativePath}/${item}`);
     const isFolder = stats?.isDirectory();
-    const size = stats.size;
+    const size = prettierBytes(stats.size);
     const createdDate = stats.birthtime.toLocaleTimeString();
     const createdTime = stats.birthtime.toLocaleTimeString();
     const updatedTime = stats.mtime.toLocaleTimeString();
@@ -74,7 +75,10 @@ const main = () => {
 
   const config: TableUserConfig = {
     singleLine: true,
-    columns: [{ alignment: "left", verticalAlignment: "middle" }],
+    columns: [
+      { alignment: "left", verticalAlignment: "middle" },
+      { alignment: "right" },
+    ],
 
     spanningCells: [{ col: 0, row: 0, colSpan: 4, rowSpan: 3 }],
   };
@@ -85,7 +89,7 @@ const main = () => {
       ["", "", "", ""],
       ["", "", "", ""],
       tableHeader,
-      ["────", "----", "", ""],
+      ["──────────────", "───────", "──────────────", "──────────────"],
       ...tableInput,
     ],
     config
@@ -94,5 +98,9 @@ const main = () => {
   console.log(tableOutput);
   console.log("Total items: ", fullList.length, "\n");
 };
+
+if (process.argv[3] == "--debug") {
+  main();
+}
 
 export default main;
