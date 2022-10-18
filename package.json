@@ -1,0 +1,31 @@
+{
+  "name": "ls-table",
+  "version": "1.1.0",
+  "description": "",
+  "main": "./bin/index.ts",
+  "bin": {
+    "ls-table": "./bin/index.js"
+  },
+  "scripts": {
+    "build": "tsc ./lib/src.ts --outDir ./bin",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Luis Suarez",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suarezluis/ls-table.git"
+  },
+  "bugs": {
+    "url": "https://github.com/suarezluis/open-in-click-up/issues"
+  },
+  "homepage": "https://github.com/suarezluis/open-in-click-up#readme",
+  "license": "ISC",
+  "dependencies": {
+    "table": "^6.8.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.0",
+    "typescript": "^4.8.4"
+  }
+}
