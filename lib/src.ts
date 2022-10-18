@@ -6,10 +6,10 @@ import { table, TableUserConfig } from "table";
 
 const main = () => {
   const pathInput = process.argv[2] || process.cwd();
-
+  const relativePath = path.resolve(process.cwd(), pathInput);
   let rawRead: string[];
   try {
-    rawRead = fs.readdirSync(pathInput);
+    rawRead = fs.readdirSync(relativePath);
   } catch (e) {
     if (typeof e === "string") {
       console.error(e);
@@ -32,7 +32,7 @@ const main = () => {
   let files: Item[] = [];
 
   for (const item of rawRead) {
-    const stats = fs.statSync(`${pathInput}/${item}`);
+    const stats = fs.statSync(`${relativePath}/${item}`);
     const isFolder = stats?.isDirectory();
     const size = stats.size;
     const createdDate = stats.birthtime.toLocaleTimeString();
@@ -81,7 +81,7 @@ const main = () => {
 
   const tableOutput = table(
     [
-      [pathInput, "", "", ""],
+      [relativePath, "", "", ""],
       ["", "", "", ""],
       ["", "", "", ""],
       tableHeader,
