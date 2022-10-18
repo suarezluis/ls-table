@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "tsc ./lib/src.ts --outDir ./bin",
+    "debug": "npx ts-node lib/src.ts . --debug",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

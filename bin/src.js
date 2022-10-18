@@ -9,6 +9,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 exports.__esModule = true;
+var prettierBytes = require("prettier-bytes");
 var os = require("os");
 var fs = require("fs");
 var path = require("path");
@@ -36,7 +37,7 @@ var main = function () {
         var item = rawRead_1[_i];
         var stats = fs.statSync("".concat(relativePath, "/").concat(item));
         var isFolder = stats === null || stats === void 0 ? void 0 : stats.isDirectory();
-        var size = stats.size;
+        var size = prettierBytes(stats.size);
         var createdDate = stats.birthtime.toLocaleTimeString();
         var createdTime = stats.birthtime.toLocaleTimeString();
         var updatedTime = stats.mtime.toLocaleTimeString();
@@ -72,7 +73,10 @@ var main = function () {
     var tableHeader = ["Name", "Size", "Created", "Updated"];
     var config = {
         singleLine: true,
-        columns: [{ alignment: "left", verticalAlignment: "middle" }],
+        columns: [
+            { alignment: "left", verticalAlignment: "middle" },
+            { alignment: "right" },
+        ],
         spanningCells: [{ col: 0, row: 0, colSpan: 4, rowSpan: 3 }]
     };
     var tableOutput = (0, table_1.table)(__spreadArray([
@@ -80,9 +84,12 @@ var main = function () {
         ["", "", "", ""],
         ["", "", "", ""],
         tableHeader,
-        ["────", "----", "", ""]
+        ["──────────────", "───────", "──────────────", "──────────────"]
     ], tableInput, true), config);
     console.log(tableOutput);
     console.log("Total items: ", fullList.length, "\n");
 };
+if (process.argv[3] == "--debug") {
+    main();
+}
 exports["default"] = main;
