@@ -36,8 +36,6 @@ const main = () => {
     const size = prettierBytes(stats.size);
     const createdDate = stats.birthtime.toLocaleTimeString();
     const createdTime = stats.birthtime.toLocaleTimeString();
-    const updatedTime = stats.mtime.toLocaleTimeString();
-    const updatedDate = stats.mtime.toLocaleDateString();
 
     if (isFolder) {
       folders.push({
