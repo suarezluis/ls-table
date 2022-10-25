@@ -14,6 +14,7 @@ var os = require("os");
 var fs = require("fs");
 var path = require("path");
 var table_1 = require("table");
+var chalk = require("chalk");
 var main = function () {
     var pathInput = process.argv[2] || process.cwd();
     var relativePath = path.resolve(process.cwd(), pathInput);
@@ -38,54 +39,31 @@ var main = function () {
         var stats = fs.statSync("".concat(relativePath, "/").concat(item));
         var isFolder = stats === null || stats === void 0 ? void 0 : stats.isDirectory();
         var size = prettierBytes(stats.size);
-        var createdDate = stats.birthtime.toLocaleTimeString();
-        var createdTime = stats.birthtime.toLocaleTimeString();
-        var updatedTime = stats.mtime.toLocaleTimeString();
-        var updatedDate = stats.mtime.toLocaleDateString();
         if (isFolder) {
             folders.push({
                 name: "\uD83D\uDCC1 ".concat(item),
-                size: size,
-                createdDate: createdDate,
-                createdTime: createdTime,
-                updatedTime: updatedTime,
-                updatedDate: updatedDate
+                size: size
             });
         }
         else {
             files.push({
                 name: "\uD83D\uDCC4 ".concat(item),
-                size: size,
-                createdDate: createdDate,
-                createdTime: createdTime,
-                updatedTime: updatedTime,
-                updatedDate: updatedDate
+                size: size
             });
         }
     }
     var fullList = __spreadArray(__spreadArray([], folders, true), files, true);
-    var tableInput = fullList.map(function (item) { return [
-        item.name,
-        item.size,
-        item.createdDate + ", " + item.createdTime,
-        item.updatedDate + ", " + item.updatedTime,
-    ]; });
-    var tableHeader = ["Name", "Size", "Created", "Updated"];
+    var tableInput = fullList.map(function (item) { return [item.name, item.size]; });
+    var tableHeader = ["Name", "Size"];
     var config = {
         singleLine: true,
         columns: [
             { alignment: "left", verticalAlignment: "middle" },
             { alignment: "right" },
-        ],
-        spanningCells: [{ col: 0, row: 0, colSpan: 4, rowSpan: 3 }]
+        ]
     };
-    var tableOutput = (0, table_1.table)(__spreadArray([
-        ["\uD83D\uDCC2 ".concat(relativePath), "", "", ""],
-        ["", "", "", ""],
-        ["", "", "", ""],
-        tableHeader,
-        ["──────────────", "───────", "──────────────", "──────────────"]
-    ], tableInput, true), config);
+    var tableOutput = (0, table_1.table)(__spreadArray([tableHeader, ["──────────────", "───────"]], tableInput, true), config);
+    console.log(chalk.green.bold("\uD83D\uDCC2 ".concat(relativePath, "\n")));
     console.log(tableOutput);
     console.log("Total items: ", fullList.length, "\n");
 };

@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 
 import { table, TableUserConfig } from "table";
-import chalk from "chalk";
+import * as chalk from "chalk";
 
 const main = () => {
   const pathInput = process.argv[2] || process.cwd();
