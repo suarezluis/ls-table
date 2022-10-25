@@ -66,7 +66,7 @@ const main = () => {
     config
   );
 
-  console.log(chalk.green.bold(`📂 ${relativePath}\n`));
+  console.log(chalk.green.bold(`\n📂 ${relativePath}\n`));
 
   console.log(tableOutput);
   console.log("Total items: ", fullList.length, "\n");

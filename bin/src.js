@@ -63,7 +63,7 @@ var main = function () {
         ]
     };
     var tableOutput = (0, table_1.table)(__spreadArray([tableHeader, ["──────────────", "───────"]], tableInput, true), config);
-    console.log(chalk.green.bold("\uD83D\uDCC2 ".concat(relativePath, "\n")));
+    console.log(chalk.green.bold("\n\uD83D\uDCC2 ".concat(relativePath, "\n")));
     console.log(tableOutput);
     console.log("Total items: ", fullList.length, "\n");
 };
