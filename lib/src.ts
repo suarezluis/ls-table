@@ -4,7 +4,6 @@ const fs = require("fs");
 const path = require("path");
 
 import { table, TableUserConfig } from "table";
-import * as chalk from "chalk";
 
 const main = () => {
   const pathInput = process.argv[2] || process.cwd();
@@ -66,7 +65,7 @@ const main = () => {
     config
   );
 
-  console.log(chalk.green.bold(`\n📂 ${relativePath}\n`));
+  console.log(`\n\x1b[32m📂 ${relativePath}\x1b[0m\n`);
 
   console.log(tableOutput);
   console.log("Total items: ", fullList.length, "\n");

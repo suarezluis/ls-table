@@ -14,7 +14,6 @@ var os = require("os");
 var fs = require("fs");
 var path = require("path");
 var table_1 = require("table");
-var chalk = require("chalk");
 var main = function () {
     var pathInput = process.argv[2] || process.cwd();
     var relativePath = path.resolve(process.cwd(), pathInput);
@@ -63,7 +62,7 @@ var main = function () {
         ]
     };
     var tableOutput = (0, table_1.table)(__spreadArray([tableHeader, ["──────────────", "───────"]], tableInput, true), config);
-    console.log(chalk.green.bold("\n\uD83D\uDCC2 ".concat(relativePath, "\n")));
+    console.log("\n\u001B[32m\uD83D\uDCC2 ".concat(relativePath, "\u001B[0m\n"));
     console.log(tableOutput);
     console.log("Total items: ", fullList.length, "\n");
 };
