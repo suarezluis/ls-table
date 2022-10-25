@@ -25,8 +25,6 @@ const main = () => {
     size: string;
     createdDate: string;
     createdTime: string;
-    updatedTime: string;
-    updatedDate: string;
   }
 
   let folders: Item[] = [];
@@ -47,8 +45,6 @@ const main = () => {
         size,
         createdDate,
         createdTime,
-        updatedTime,
-        updatedDate,
       });
     } else {
       files.push({
@@ -56,8 +52,6 @@ const main = () => {
         size,
         createdDate,
         createdTime,
-        updatedTime,
-        updatedDate,
       });
     }
   }
@@ -68,10 +62,9 @@ const main = () => {
     item.name,
     item.size,
     item.createdDate + ", " + item.createdTime,
-    item.updatedDate + ", " + item.updatedTime,
   ]);
 
-  const tableHeader = ["Name", "Size", "Created", "Updated"];
+  const tableHeader = ["Name", "Size", "Created"];
 
   const config: TableUserConfig = {
     singleLine: true,
@@ -80,16 +73,16 @@ const main = () => {
       { alignment: "right" },
     ],
 
-    spanningCells: [{ col: 0, row: 0, colSpan: 4, rowSpan: 3 }],
+    spanningCells: [{ col: 0, row: 0, colSpan: 3, rowSpan: 3 }],
   };
 
   const tableOutput = table(
     [
-      [`📂 ${relativePath}`, "", "", ""],
-      ["", "", "", ""],
-      ["", "", "", ""],
+      [`📂 ${relativePath}`, "", ""],
+      ["", "", ""],
+      ["", "", ""],
       tableHeader,
-      ["──────────────", "───────", "──────────────", "──────────────"],
+      ["──────────────", "───────", "──────────────"],
       ...tableInput,
     ],
     config
