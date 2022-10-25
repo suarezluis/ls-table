@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 
 import { table, TableUserConfig } from "table";
+import chalk from "chalk";
 
 const main = () => {
   const pathInput = process.argv[2] || process.cwd();
@@ -23,8 +24,6 @@ const main = () => {
   interface Item {
     name: string;
     size: string;
-    createdDate: string;
-    createdTime: string;
   }
 
   let folders: Item[] = [];
@@ -34,35 +33,25 @@ const main = () => {
     const stats = fs.statSync(`${relativePath}/${item}`);
     const isFolder = stats?.isDirectory();
     const size = prettierBytes(stats.size);
-    const createdDate = stats.birthtime.toLocaleTimeString();
-    const createdTime = stats.birthtime.toLocaleTimeString();
 
     if (isFolder) {
       folders.push({
         name: `📁 ${item}`,
         size,
-        createdDate,
-        createdTime,
       });
     } else {
       files.push({
         name: `📄 ${item}`,
         size,
-        createdDate,
-        createdTime,
       });
     }
   }
 
   const fullList = [...folders, ...files];
 
-  const tableInput = fullList.map((item) => [
-    item.name,
-    item.size,
-    item.createdDate + ", " + item.createdTime,
-  ]);
+  const tableInput = fullList.map((item) => [item.name, item.size]);
 
-  const tableHeader = ["Name", "Size", "Created"];
+  const tableHeader = ["Name", "Size"];
 
   const config: TableUserConfig = {
     singleLine: true,
@@ -70,21 +59,14 @@ const main = () => {
       { alignment: "left", verticalAlignment: "middle" },
       { alignment: "right" },
     ],
-
-    spanningCells: [{ col: 0, row: 0, colSpan: 3, rowSpan: 3 }],
   };
 
   const tableOutput = table(
-    [
-      [`📂 ${relativePath}`, "", ""],
-      ["", "", ""],
-      ["", "", ""],
-      tableHeader,
-      ["──────────────", "───────", "──────────────"],
-      ...tableInput,
-    ],
+    [tableHeader, ["──────────────", "───────"], ...tableInput],
     config
   );
+
+  console.log(chalk.green.bold(`📂 ${relativePath}\n`));
 
   console.log(tableOutput);
   console.log("Total items: ", fullList.length, "\n");
